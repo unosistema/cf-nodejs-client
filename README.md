@@ -134,8 +134,8 @@ CloudController.getInfo().then( (result) => {
 }).then( (result) => {
     
     ServiceInstances.setToken(result);
-    return ServiceInstances.start("<YOUR_HANA_SERVICE_ID>");
-    //return ServiceInstances.stop("<YOUR_HANA_SERVICE_ID>");
+    return ServiceInstances.start("YOUR_HANA_SERVICE_ID");
+    //return ServiceInstances.stop("YOUR_HANA_SERVICE_ID");
     
 }).then( (result) => {
     console.log(result);
