@@ -102,6 +102,15 @@ Explore the library and if you like the features, use it on your App:
 npm install unosistema/cf-nodejs-client --save
 
 ```
+Or edit your package.json like following:
+
+``` Javascript
+
+  "dependencies": {
+    "cf-nodejs-client": "git+https://github.com/unosistema/cf-nodejs-client.git"
+  }
+
+```
 
 # Start/Stop HANA Service
 
