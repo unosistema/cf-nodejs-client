@@ -35,11 +35,9 @@ Using this library, you could interact with the following platforms: [PWS](https
 | [User provided Services](https://prosociallearneu.github.io/cf-nodejs-client/docs/v0.12.0/UserProvidedServices.html)  |                    	    |                       	|
 | [Users](https://prosociallearneu.github.io/cf-nodejs-client/docs/v0.12.0/Users.html)                   |                    	    |                       	|
 
-# Applications
+# Focus
 
-[Node.js](https://nodejs.org/) with [Express](http://expressjs.com/) are a great combination to develop Web applications. If you <a href="https://www.google.com/trends/explore#q=python%20flask%2C%20node%20express%2C%20golang%20pat%2C%20java%20spark%2C%20ruby%20sinatra&cmpt=q&tz=Etc%2FGMT-2" target="_blank">observe the Sinatra market</a>, you will notice that Node.js has a huge Traction.
-
-The development doesn't cover the whole CC API. Main areas of development are:
+The development doesn't cover the whole CloudController API. Main areas of development are:
 
 **App life cycle:**
 
@@ -53,6 +51,11 @@ The development doesn't cover the whole CC API. Main areas of development are:
 * Simple Logs management
 * Remove Apps
 * Remove User Provided Services
+
+**SAP Cloud Platform HANA Service life cycle:**
+
+* Start/Stop a HANA Service
+* Delete a HANA Service
 
 **PaaS Management:**
 
@@ -70,9 +73,9 @@ If you need to interact with a Cloud Foundry platform try this [online tool](htt
 ``` Javascript
 "use-strict";
 
-const endpoint = "https://api.run.pivotal.io";
-const username = "PWS_USERNAME";
-const password = "PWS_PASSWORD";
+const endpoint = "https://api.cf.eu10.hana.ondemand.com";
+const username = "SAPCP_USERNAME";
+const password = "SAPCP_PASSWORD";
 
 const CloudController = new (require("cf-nodejs-client")).CloudController(endpoint);
 const UsersUAA = new (require("cf-nodejs-client")).UsersUAA;
@@ -96,7 +99,40 @@ Explore the library and if you like the features, use it on your App:
 
 ``` Javascript
 
-npm install cf-nodejs-client --save
+npm install unosistema/cf-nodejs-client --save
+
+```
+
+# Start/Stop HANA Service
+
+If you need to start/stop a SAP Cloud Platform HANA Service in Cloud Foundry Env. try this example:
+
+``` Javascript
+"use-strict";
+
+const endpoint = "https://api.cf.eu10.hana.ondemand.com";
+const username = "SAPCP_USERNAME";
+const password = "SAPCP_PASSWORD";
+
+const CloudController = new (require("cf-nodejs-client")).CloudController(endpoint);
+const UsersUAA = new (require("cf-nodejs-client")).UsersUAA;
+//const Apps = new (require("cf-nodejs-client")).Apps(endpoint);
+const ServiceInstances = new (require("cf-nodejs-client")).ServiceInstances(endpoint);
+
+CloudController.getInfo().then( (result) => {
+    UsersUAA.setEndPoint(result.authorization_endpoint);
+    return UsersUAA.login(username, password);
+}).then( (result) => {
+    
+    ServiceInstances.setToken(result);
+    return ServiceInstances.start("<YOUR_HANA_SERVICE_ID>");
+    //return ServiceInstances.stop("<YOUR_HANA_SERVICE_ID>");
+    
+}).then( (result) => {
+    console.log(result);
+}).catch( (reason) => {
+    console.error("Error: " + reason);
+});
 
 ```
 
@@ -137,10 +173,6 @@ https://travis-ci.org/prosociallearnEU/cf-nodejs-client/
 
 ```
 
-# Versions
-
-Take a look this [doc](https://github.com/prosociallearnEU/cf-nodejs-client/blob/master/CHANGELOG.md) to check the evolution of this Client for Cloud foundry.
-
 # References
 
 * API Docs: http://apidocs.cloudfoundry.org/
@@ -150,6 +182,7 @@ Take a look this [doc](https://github.com/prosociallearnEU/cf-nodejs-client/blob
 * PWS Forum: https://support.run.pivotal.io/forums
 * Bluemix Forum: https://developer.ibm.com/answers/
 * CF for Beginners: From Zero to Hero http://slides.cf-hero.cloudcredo.io/
+* Cloud Foundry CLI with the SAP HANA Service: https://help.sap.com/viewer/cc53ad464a57404b8d453bbadbc81ceb/Cloud/en-US/5330bf0513e24aaabc4b88a55fdb063b.html#loio5330bf0513e24aaabc4b88a55fdb063b__section_vxr_xx5_4fb
 
 ## Others references
 
@@ -157,7 +190,7 @@ Take a look this [doc](https://github.com/prosociallearnEU/cf-nodejs-client/blob
 
 # Issues
 
-If you have any question or doubt, please [create an issue](https://github.com/prosociallearnEU/cf-nodejs-client/issues). 
+If you have any question or doubt, please [create an issue](https://github.com/unosistema/cf-nodejs-client/issues). 
 
 # License
 
