@@ -13,13 +13,13 @@
     "test_pws": "mocha test --config=PIVOTAL",
     "test_bluemix": "mocha test --config=BLUEMIX"
   },
-  "homepage": "https://github.com/prosociallearnEU/cf-nodejs-client",
+  "homepage": "https://github.com/unosistema/cf-nodejs-client",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prosociallearnEU/cf-nodejs-client.git"
+    "url": "git+https://github.com/unosistema/cf-nodejs-client.git"
   },
   "bugs": {
-    "url": "https://github.com/prosociallearnEU/cf-nodejs-client/issues"
+    "url": "https://github.com/unosistema/cf-nodejs-client/issues"
   },
   "engines": {
     "node": ">=4.2.3",
