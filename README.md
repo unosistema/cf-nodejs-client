@@ -112,7 +112,40 @@ Or edit your package.json like following:
 
 ```
 
-# Start/Stop HANA Service
+# Show all Service Instances
+
+If you need to start/stop a SAP Cloud Platform HANA Service in Cloud Foundry Env. try this example:
+
+``` Javascript
+"use-strict";
+
+const endpoint = "https://api.cf.eu10.hana.ondemand.com";
+const username = "SAPCP_USERNAME";
+const password = "SAPCP_PASSWORD";
+
+const CloudController = new (require("cf-nodejs-client")).CloudController(endpoint);
+const UsersUAA = new (require("cf-nodejs-client")).UsersUAA;
+//const Apps = new (require("cf-nodejs-client")).Apps(endpoint);
+const ServiceInstances = new (require("cf-nodejs-client")).ServiceInstances(endpoint);
+
+CloudController.getInfo().then( (result) => {
+    UsersUAA.setEndPoint(result.authorization_endpoint);
+    return UsersUAA.login(username, password);
+}).then( (result) => {
+    
+    ServiceInstances.setToken(result);
+    return ServiceInstances.getInstances();
+    
+}).then( (result) => {
+    //console.log(result);
+    console.log(result.resources);
+}).catch( (reason) => {
+    console.error("Error: " + reason);
+});
+
+```
+
+# Start/Stop a HANA Service Instance
 
 If you need to start/stop a SAP Cloud Platform HANA Service in Cloud Foundry Env. try this example:
 
@@ -136,6 +169,38 @@ CloudController.getInfo().then( (result) => {
     ServiceInstances.setToken(result);
     return ServiceInstances.start("YOUR_HANA_SERVICE_ID");
     //return ServiceInstances.stop("YOUR_HANA_SERVICE_ID");
+    
+}).then( (result) => {
+    console.log(result);
+}).catch( (reason) => {
+    console.error("Error: " + reason);
+});
+
+```
+
+# Delete a HANA Service Instance
+
+If you need to start/stop a SAP Cloud Platform HANA Service in Cloud Foundry Env. try this example:
+
+``` Javascript
+"use-strict";
+
+const endpoint = "https://api.cf.eu10.hana.ondemand.com";
+const username = "SAPCP_USERNAME";
+const password = "SAPCP_PASSWORD";
+
+const CloudController = new (require("cf-nodejs-client")).CloudController(endpoint);
+const UsersUAA = new (require("cf-nodejs-client")).UsersUAA;
+//const Apps = new (require("cf-nodejs-client")).Apps(endpoint);
+const ServiceInstances = new (require("cf-nodejs-client")).ServiceInstances(endpoint);
+
+CloudController.getInfo().then( (result) => {
+    UsersUAA.setEndPoint(result.authorization_endpoint);
+    return UsersUAA.login(username, password);
+}).then( (result) => {
+    
+    ServiceInstances.setToken(result);
+    return ServiceInstances.remove("YOUR_HANA_SERVICE_ID");
     
 }).then( (result) => {
     console.log(result);
