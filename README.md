@@ -114,8 +114,6 @@ Or edit your package.json like following:
 
 # Show all Service Instances
 
-If you need to start/stop a SAP Cloud Platform HANA Service in Cloud Foundry Env. try this example:
-
 ``` Javascript
 "use-strict";
 
@@ -180,7 +178,7 @@ CloudController.getInfo().then( (result) => {
 
 # Delete a HANA Service Instance
 
-If you need to start/stop a SAP Cloud Platform HANA Service in Cloud Foundry Env. try this example:
+If you need to delete a SAP Cloud Platform HANA Service in Cloud Foundry Env. try this example:
 
 ``` Javascript
 "use-strict";
